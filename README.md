@@ -1,5 +1,5 @@
 # DatabaseTermProject
-#Stage 3: Development Plan and Development Environment
+# Stage 3: Development Plan and Development Environment
 
 **1. Databases and Software Languages:**  
 Database – MySQL  

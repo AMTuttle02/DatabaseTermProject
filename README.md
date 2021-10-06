@@ -22,10 +22,10 @@ Server Script – Alex & Mitch
 Scraping – Lee  
 
 **5. Timeline:**  
-Executing SQL code and Scraping Start- Because of midterms, October 18th   
--	(Hopefully finished before the start of server scripting language).  
+Executing SQL code and Scraping Start- Because of midterms, October 18th  
+(Hopefully finished before the start of server scripting language).  
 Server-side scripting language and Web Development Start - October 25  
--	(Finished by Wednesday November 3rd before demo)  
+(Finished by Wednesday November 3rd before demo)  
 Milestone: Finishing touches – Week of demo (November 1)  
 Finish Web Scraping – Finish by November 30  
 Milestone: Finish Website Style – Finish by November 30  

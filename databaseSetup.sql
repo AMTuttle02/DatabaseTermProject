@@ -14,9 +14,8 @@ CREATE TABLE courseInfo (
 
 insert into courseInfo values
 (
-  VALUES ('7700 201', 'American Sign Language III', '3:30', '4:45');
-  VALUES ('3460 316', 'Data Structures', '12:15', '1:30');
-  VALUES ('3470 461', 'Applied Statistics', '2:00', '3:15');
-  VALUES ('3460 475', 'Database Management', '3:30', '4:45');
-
+  ('7700201', 'American Sign Language III', '3:30', '4:45'),
+  ('3460316', 'Data Structures', '12:15', '1:30'),
+  ('3470461', 'Applied Statistics', '2:00', '3:15'),
+  ('3460475', 'Database Management', '3:30', '4:45')
 );

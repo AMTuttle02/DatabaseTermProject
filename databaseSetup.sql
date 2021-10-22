@@ -1,4 +1,4 @@
-CREATE DATABASE;
+CREATE DATABASE dbmang;
 
 USE dbmang;
 

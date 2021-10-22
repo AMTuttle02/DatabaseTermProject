@@ -19,7 +19,7 @@ CREATE TABLE courseInfo (
 );
 
 CREATE TABLE classroomInfo (
-  roomID INT(6) PRIMARY KEY,
+  roomID VARCHAR(6) PRIMARY KEY,
   roomNum INT(3),
   location VARCHAR(100),
   capacity INT(3)

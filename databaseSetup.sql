@@ -24,6 +24,16 @@ CREATE TABLE classroomInfo (
   courseNum INT(11)
 );
 
+CREATE TABLE userInput (
+  userID INT(7) PRIMARY KEY,
+  startTime VARCHAR(5),
+  endTime VARCHAR(5),
+  roomID VARCHAR(6),
+  FOREIGN KEY(roomID) REFERENCES classroomInfo(roomID)
+  ON DELETE SET NULL
+  ON UPDATE CASCADE
+);
+
 insert into courseInfo values
 ('7700201', 'American Sign Language III', '15:30', '16:45', 'Pol434'),
 ('3460316', 'Data Structures', '12:15', '13:30', 'CAS134'),

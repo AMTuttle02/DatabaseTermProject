@@ -36,7 +36,7 @@ CREATE TABLE userInput (
 );
 
 insert into courseInfo values
-('7700201', 'American Sign Language III', '15:30', '16:45', 'Pol434'),
+('7700201', 'American Sign Language III', '15:30', '16:45', 'POL434'),
 ('3460316', 'Data Structures', '12:15', '13:30', 'CAS134'),
 ('3470461', 'Applied Statistics', '14:00', '15:15', 'CAS140'),
 ('3460475', 'Database Management', '15:30', '16:45', 'CAS134');

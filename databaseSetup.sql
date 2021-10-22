@@ -33,6 +33,6 @@ insert into courseInfo values
 insert into classroomInfo values
 ('Pol', '434', 'Polsky', '30'),
 ('CAS', '134', 'College of Arts & Sciences', '30'),
-('CAS', '134', 'College of Arts & Sciences', '30');
+('CAS', '140', 'College of Arts & Sciences', '100');
 
 

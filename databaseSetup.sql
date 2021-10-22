@@ -20,8 +20,7 @@ CREATE TABLE classroomInfo (
   roomID INT(6) PRIMARY KEY,
   roomNum INT(3),
   location VARCHAR(100),
-  capacity INT(3),
-  courseNum INT(11)
+  capacity INT(3)
 );
 
 CREATE TABLE userInput (

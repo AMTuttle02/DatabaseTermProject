@@ -3,6 +3,8 @@ CREATE DATABASE dbmang;
 USE dbmang;
 
 DROP TABLE IF EXISTS courseInfo;
+DROP TABLE IF EXISTS classroomInfo;
+DROP TABLE IF EXISTS userInput;
 
 CREATE TABLE courseInfo (
   courseNum INT(11),
@@ -40,8 +42,8 @@ insert into courseInfo values
 ('3460475', 'Database Management', '15:30', '16:45', 'CAS134');
 
 insert into classroomInfo values
-('Pol', '434', 'Polsky', '30'),
-('CAS', '134', 'College of Arts & Sciences', '30'),
-('CAS', '140', 'College of Arts & Sciences', '100');
+('POL434', '434', 'Polsky', '30'),
+('CAS134', '134', 'College of Arts & Sciences', '30'),
+('CAS134', '140', 'College of Arts & Sciences', '100');
 
 

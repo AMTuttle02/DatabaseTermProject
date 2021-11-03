@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <title> Reserve A Room </title>
+      <link rel="stylesheet" type="text/css" href="fancy.css">
+</head>
+<body>
+<table>
+	<tr>
+		<th>
+			<h1><a href="menu.html" style="color:silver;">Reserve A Room</a></h1>
+		</th>
+	</tr>
+</table>
+<div class="row">
+	<div class="column left">
+		<table id = "operations">
+			<tr>
+				<td id = "operations"> Operations: </td>
+			</tr>
+			<tr>
+				<td id = "operations" onclick="location.href='searchAvailability.html'" style="cursor: pointer; text-decoration: underline;"> Search Availability </a></td>
+			</tr>
+			<tr>
+				<td id = "operations" onclick="location.href='viewReservation.html'" style="cursor: pointer; text-decoration: underline;"> View Current Reservations </td>
+			</tr>
+			<tr>
+				<td id = "operations" onclick="location.href='addReservation.html'" style="cursor: pointer; text-decoration: underline;"> Reserve A Room</td>
+			</tr>
+			<tr>
+				<td id = "operations" onclick="location.href='updateReservation.html'" style="cursor: pointer; text-decoration: underline;"> Update A Reservation </td>
+			</tr>
+			<tr>
+				<td id = "operations" onclick="location.href='deleteReservation.html'" style="cursor: pointer; text-decoration: underline;"> Delete A Reservation </td>
+			</tr>
+			<tr style="border-bottom: 10px groove grey;">
+				<td id = "operations" onclick="location.href='about.html'" style="cursor: pointer; text-decoration: underline;"> About </td>
+			</tr>
+		</table>
+	</div>
+	<br><br>
+	<div class="column middle">
+			<center>
+		<h1>Delete A Reservation</h1>
+		<h2>Please Follow The Format. Use Military Time</h2>
+		<h3>Input the exact information in your current reservation</h3>
+	</center>
+	<table>
+		<tr>
+			<th> Student ID </th>
+			<th> Start Time </th>
+			<th> End Time </th>
+			<th> RoomID </th>
+			<th> Reserved Date </th>
+			<th> Submit </th>
+		</tr>
+
+		<form action="delete.php" method="post">
+			<tr>
+				<td><input type = "number"  name = "userID" id="userID" size = "7" value = "1234567" min="0" max="9999999" /></td>
+				<td><input type = "text"  name = "startTime" id="startTime" size = "5" value = "00:00" /></td>
+				<td><input type = "text"  name = "endTime" id="endTime" size = "5" value = "01:00" /></td>
+				<td><input type = "text"  name = "roomID" id="roomID" size = "6" value = "CAS134" /></td>				
+				<td><input type = "text"  name = "reservedDate" id="reservedDate" size = "9" value = "Monday" /></td>
+				<td><input type = "submit" value="Submit"></td>
+			</tr>
+		</form>	
+	</table>
+	</div>
+	<div class="column right">
+		<img src="zippy.png" alt="Zippy" width="410" height="521">
+	</div>
+</section>
+</body>
+</html>

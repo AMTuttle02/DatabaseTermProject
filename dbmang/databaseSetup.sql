@@ -56,7 +56,7 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`id`, `username`, `password`) VALUES 
 (1, '4673822', '$2y$10$JjOAuTgUOGYfAWdy.qtIU.DdjMcXca5Zub6WvKByfT2gEU.spv/yS'),
-(2, '4673823', '$2y$10$JjOAuTgUOGYfAWdy.qtIU.DdjMcXca5Zub6WvKByfT2gEU.spv/yS'),
+(2, '4190601', '$2y$10$JjOAuTgUOGYfAWdy.qtIU.DdjMcXca5Zub6WvKByfT2gEU.spv/yS'),
 (3, '4673824', '$2y$10$JjOAuTgUOGYfAWdy.qtIU.DdjMcXca5Zub6WvKByfT2gEU.spv/yS');
 
 insert into courseInfo values

@@ -68,6 +68,12 @@
 	$roomID = $_POST["roomID"];
 	$reservedDate = $_POST["reservedDate"];
 
+	if ($endTime <= $startTime)
+	{
+		echo "<center><h2>Error - Invalid Time Slots</h2></center>";
+		exit;
+	}
+
 	if ($reservedDate == "monday") // Monday
 	{
 		$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$startTime}' AND endTime >= '{$startTime}' AND Monday = 1 AND roomID = '{$roomID}')";

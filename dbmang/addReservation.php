@@ -12,6 +12,24 @@
 		header('Location: index.html');
 		exit;
 	}
+	$db = mysqli_connect("localhost:3306", "root", "","dbmang");
+
+		if (!$db) {
+			 print "Error - Could not connect to MySQL";
+			 exit;
+		}
+
+		// Select the database
+		$er = mysqli_select_db($db,"dbmang");
+		if (!$er) {
+			print "Error - Could not select the database";
+			exit;
+		}
+$username = "SELECT username FROM accounts WHERE id = '{$_SESSION['loggedin']}'";
+$result = mysqli_query($db,$username);
+while($row = $result->fetch_assoc()) {
+	$name = $row["username"];
+}
 ?>
 <table>
 	<tr>
@@ -64,7 +82,7 @@
 
 		<form action="insert.php" method="post">
 			<tr>
-				<td><input type = "number"  name = "userID" id="userID" size = "7" value = "1234567" min="0" max="9999999" /></td>
+				<td><input type = "number" name = "id" id="id" value = "<?php echo ($name); ?>"  min="<?php echo ($name); ?>" max="<?php echo ($name); ?>"></td>
 				<td><input type = "text"  name = "startTime" id="startTime" size = "5" value = "00:00" /></td>
 				<td><input type = "text"  name = "endTime" id="endTime" size = "5" value = "01:00" /></td>
 				<td><input type = "text"  name = "roomID" id="roomID" size = "6" value = "CAS134" /></td>				

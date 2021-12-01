@@ -82,7 +82,7 @@ while($row = $result->fetch_assoc()) {
 
 		<form action="insert.php" method="post">
 			<tr>
-				<td><input type = "number" name = "id" id="id" value = "<?php echo ($name); ?>"  min="<?php echo ($name); ?>" max="<?php echo ($name); ?>"></td>
+				<td><input type = "number" name = "userID" id="userID" value = "<?php echo ($name); ?>"  min="<?php echo ($name); ?>" max="<?php echo ($name); ?>"></td>
 				<td><input type = "text"  name = "startTime" id="startTime" size = "5" value = "00:00" /></td>
 				<td><input type = "text"  name = "endTime" id="endTime" size = "5" value = "01:00" /></td>
 				<td><input type = "text"  name = "roomID" id="roomID" size = "6" value = "CAS134" /></td>				

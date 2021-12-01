@@ -44,7 +44,6 @@
 			<h1>Reserved Times And Dates</h1>
 		</center>
 		<?php
-// We need to use sessions, so you should always start sessions using the below code.
 session_start();
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
@@ -53,7 +52,8 @@ if (!isset($_SESSION['loggedin'])) {
 }
 		$start = $_POST["start"];
 		$end = $_POST["end"];
-
+		$day = $_POST["day"];
+		
 		// Connect to MySQL
 		$db = mysqli_connect("localhost:3306", "root", "","dbmang");
 
@@ -69,10 +69,43 @@ if (!isset($_SESSION['loggedin'])) {
 		exit;
 		}
 		{
-			$sql = "SELECT *
-					FROM courseInfo
-					WHERE startTime >= '{$start}' AND endTime <= '{$end}'";
-			$result = $db->query($sql);
+			if ($day == 'monday') {
+				$sql = "SELECT *
+						FROM courseInfo
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}' AND Monday = 1";
+				$result = $db->query($sql);
+			}
+			else if ($day == 'tuesday') {
+				$sql = "SELECT *
+						FROM courseInfo
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}' AND Tuesday = 1";
+				$result = $db->query($sql);
+			}
+			else if ($day == 'wednesday') {
+				$sql = "SELECT *
+						FROM courseInfo
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}' AND Wednesday = 1";
+				$result = $db->query($sql);
+			}
+			else if ($day == 'thursday') {
+				$sql = "SELECT *
+						FROM courseInfo
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}' AND Thursday = 1";
+				$result = $db->query($sql);
+			}
+			else if ($day == 'friday') {
+				$sql = "SELECT *
+						FROM courseInfo
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}' AND Friday = 1";
+				$result = $db->query($sql);
+			}
+			else {
+				$sql = "SELECT *
+						FROM courseInfo
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}'";
+				$result = $db->query($sql);
+			}
+
 			echo "<table>
 					<tr>
 						<th>Start Time</th>
@@ -118,10 +151,42 @@ if (!isset($_SESSION['loggedin'])) {
 			}
 		}
 		{
-			$sql = "SELECT *
-					FROM userinput
-					WHERE startTime >= '{$start}' AND endTime <= '{$end}'";
-			$result = $db->query($sql);
+			if ($day == 'monday') {
+				$sql = "SELECT *
+						FROM userinput
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}' AND Monday = 1";
+				$result = $db->query($sql);
+			}
+			else if ($day == 'tuesday') {
+				$sql = "SELECT *
+						FROM userinput
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}' AND Tuesday = 1";
+				$result = $db->query($sql);
+			}
+			else if ($day == 'wednesday') {
+				$sql = "SELECT *
+						FROM userinput
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}' AND Wednesday = 1";
+				$result = $db->query($sql);
+			}
+			else if ($day == 'thursday') {
+				$sql = "SELECT *
+						FROM userinput
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}' AND Thursday = 1";
+				$result = $db->query($sql);
+			}
+			else if ($day == 'friday') {
+				$sql = "SELECT *
+						FROM userinput
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}' AND Friday = 1";
+				$result = $db->query($sql);
+			}
+			else {
+				$sql = "SELECT *
+						FROM userinput
+						WHERE startTime >= '{$start}' AND endTime <= '{$end}'";
+				$result = $db->query($sql);
+			}
 
 			if ($result->num_rows > 0) {
 			// output data of each row

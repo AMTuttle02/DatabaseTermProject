@@ -57,6 +57,7 @@ if (!isset($_SESSION['loggedin'])) {
 		<tr>
 			<th> Start Time </th>
 			<th> End Time </th>
+			<th> Day </th>
 			<th> Submit </th>
 		</tr>
 
@@ -64,6 +65,15 @@ if (!isset($_SESSION['loggedin'])) {
 			<tr>
 				<td><input type = "text"  name = "start" id="start" value = "00:00" /></td>
 				<td><input type = "text"  name = "end" id="end" value = "23:00" /></td>
+				<td>
+					<select name="day" id="day">
+						<option value="monday">Monday</option>
+						<option value="tuesday">Tuesday</option>
+						<option value="wednesday">Wednesday</option>
+						<option value="thursday">Thursday</option>
+						<option value="friday">Friday</option>
+					</select>
+				</td>
 				<td><input type = "submit" value="Submit"></td>
 			</tr>
 		</form>	

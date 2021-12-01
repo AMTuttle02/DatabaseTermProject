@@ -6,13 +6,12 @@
 </head>
 <body>
 <?php
-// We need to use sessions, so you should always start sessions using the below code.
-session_start();
-// If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
-	exit;
-}
+	session_start();
+	// If the user is not logged in redirect to the login page...
+	if (!isset($_SESSION['loggedin'])) {
+		header('Location: index.html');
+		exit;
+	}
 ?>
 <table>
 	<tr>
@@ -69,7 +68,15 @@ if (!isset($_SESSION['loggedin'])) {
 				<td><input type = "text"  name = "startTime" id="startTime" size = "5" value = "00:00" /></td>
 				<td><input type = "text"  name = "endTime" id="endTime" size = "5" value = "01:00" /></td>
 				<td><input type = "text"  name = "roomID" id="roomID" size = "6" value = "CAS134" /></td>				
-				<td><input type = "text"  name = "reservedDate" id="reservedDate" size = "9" value = "Monday" /></td>
+				<td>
+					<select name="reservedDate" id="reservedDate">
+						<option value="monday">Monday</option>
+						<option value="tuesday">Tuesday</option>
+						<option value="wednesday">Wednesday</option>
+						<option value="thursday">Thursday</option>
+						<option value="friday">Friday</option>
+					</select>
+				</td>
 				<td><input type = "submit" value="Submit"></td>
 			</tr>
 		</form>	

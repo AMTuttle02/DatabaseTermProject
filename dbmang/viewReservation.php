@@ -50,7 +50,6 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
-
 		// Connect to MySQL
 		$db = mysqli_connect("localhost:3306", "root", "","dbmang");
 
@@ -66,17 +65,11 @@ if (!isset($_SESSION['loggedin'])) {
 		exit;
 		}
 
-		$username = "SELECT username FROM accounts WHERE id = '{$_SESSION['loggedin']}'";
-		$result = mysqli_query($db,$username);
-		while($row = $result->fetch_assoc()) {
-			$id = $row["username"];
-		}
-
 		echo "<center><h1> User Reservations</h1></center>";
 		{
 			$sql = "SELECT *
 					FROM userinput
-					WHERE userID = '{$id}'";
+					WHERE userID = '{$_SESSION['name']}'";
 			$result = $db->query($sql);
 
 			if ($result->num_rows > 0) {

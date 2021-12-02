@@ -219,7 +219,7 @@
 	</div>
 	<div class="column right">
 	<h2 style="padding-left: 200px;"><a href = "logout.php"> LogOut </a></h2><br><br>
-		<img src="zippy.png" alt="Zippy" width="410" height="521">
+		<img src="jak.jpeg" alt="Zippy" width="410" height="521">
 	</div>
 </section>
 </body>

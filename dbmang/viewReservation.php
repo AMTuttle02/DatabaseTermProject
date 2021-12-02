@@ -116,7 +116,7 @@ if (!isset($_SESSION['loggedin'])) {
 			}
 			echo "</table>";
 			} else {
-			echo "0 results";
+			echo "<center><h2>You have no current reservations</h2></center>";
 			}
 		}
 

@@ -6,13 +6,25 @@
 </head>
 <body>
 <?php
-// We need to use sessions, so you should always start sessions using the below code.
 session_start();
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.html');
 	exit;
 }
+$db = mysqli_connect("localhost:3306", "root", "","dbmang");
+
+		if (!$db) {
+			 print "Error - Could not connect to MySQL";
+			 exit;
+		}
+
+		// Select the database
+		$er = mysqli_select_db($db,"dbmang");
+		if (!$er) {
+			print "Error - Could not select the database";
+			exit;
+		}
 ?>
 <table>
 	<tr>
@@ -66,7 +78,7 @@ if (!isset($_SESSION['loggedin'])) {
 
 		<form action="delete.php" method="post">
 			<tr>
-				<td><input type = "number"  name = "userID" id="userID" size = "7" value = "1234567" min="0" max="9999999" /></td>
+				<td><input type = "number"  name = "userID" id="userID" size = "7" value = "<?php echo ($_SESSION['name']); ?>" min="<?php echo ($_SESSION['name']); ?>" max="<?php echo ($_SESSION['name']); ?>" /></td>
 				<td><input type = "text"  name = "startTime" id="startTime" size = "5" value = "00:00" /></td>
 				<td><input type = "text"  name = "endTime" id="endTime" size = "5" value = "01:00" /></td>
 				<td><input type = "text"  name = "roomID" id="roomID" size = "6" value = "CAS134" /></td>				

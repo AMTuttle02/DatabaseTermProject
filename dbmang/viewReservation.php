@@ -5,15 +5,6 @@
       <link rel="stylesheet" type="text/css" href="fancy.css">
 </head>
 <body>
-<?php
-// We need to use sessions, so you should always start sessions using the below code.
-session_start();
-// If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
-	exit;
-}
-?>
 <table>
 	<tr>
 		<th>
@@ -50,22 +41,86 @@ if (!isset($_SESSION['loggedin'])) {
 	<br><br>
 	<div class="column middle">
 			<center>
-		<h1>View Current Reservations</h1>
-		<h2>Use Your School ID Number</h2>
+		<h1>Reserved Times And Dates</h1>
 	</center>
-	<table>
-		<tr>
-			<th> Your Student ID </th>
-			<th> Submit </th>
-		</tr>
+		<?php
+session_start();
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+	header('Location: index.html');
+	exit;
+}
+		// Connect to MySQL
+		$db = mysqli_connect("localhost:3306", "root", "","dbmang");
 
-		<form action="currentReservations.php" method="post">
-			<tr>
-				<td><input type = "text"  name = "id" id="id" value = "4673822" /></td>
-				<td><input type = "submit" value="Submit"></td>
-			</tr>
-		</form>	
-	</table>
+		if (!$db) {
+		 print "Error - Could not connect to MySQL";
+		 exit;
+		}
+
+		// Select the database
+		$er = mysqli_select_db($db,"dbmang");
+		if (!$er) {
+		print "Error - Could not select the database";
+		exit;
+		}
+
+		echo "<center><h1> User Reservations</h1></center>";
+		{
+			$sql = "SELECT *
+					FROM userinput
+					WHERE userID = '{$_SESSION['name']}'";
+			$result = $db->query($sql);
+
+			if ($result->num_rows > 0) {
+			echo "<table>
+					<tr>
+						<th>User ID</th>
+						<th>Start Time</th>
+						<th>End Time</th>
+						<th>Room ID</th>
+						<th>Reserved Dates</th>
+					</tr>";
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				$monday = $row["Monday"];
+				$tuesday = $row["Tuesday"];
+				$wednesday = $row["Wednesday"];
+				$thursday = $row["Thursday"];
+				$friday = $row["Friday"];
+				echo "<tr>";
+				echo	"<td>" . $row["userID"]. "</td>";
+				echo	"<td>" . $row["startTime"]. "</td>";
+				echo	"<td>" . $row["endTime"]. "</td>";
+				echo	"<td>" . $row["roomID"]. "</td>";
+				echo "<td>";
+				if ($monday > 0) {
+					echo "Monday" . "<br>";
+				}
+				if ($tuesday > 0)
+				{
+					echo "Tuesday<br>";
+				}
+				if ($wednesday > 0) {
+					echo "Wednesday<br>";
+				}
+				if ($thursday > 0)
+				{
+					echo "Thursday<br>";
+				}
+				if ($friday > 0) {
+					echo "Friday";
+				}
+				echo "</td>";
+				echo "</tr>";
+			}
+			echo "</table>";
+			} else {
+			echo "<center><h2>You have no current reservations</h2></center>";
+			}
+		}
+
+		?>
 	</div>
 	<div class="column right">
 	<h2 style="padding-left: 200px;"><a href = "logout.php"> LogOut </a></h2><br><br>

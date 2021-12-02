@@ -67,40 +67,611 @@ if (!isset($_SESSION['loggedin'])) {
 			$startTime = $_POST["startTime"];
 			$endTime = $_POST["endTime"];
 			$roomID = $_POST["roomID"];
-			$reservedDate = $_POST["reservedDate"];
-			if ($reservedDate == "Monday")
+			$reservedDate = $_POST["day"];
+			$newStartTime = $_POST["newStartTime"];
+			$newEndTime = $_POST["newEndTime"];
+			$newDate = $_POST["newDay"];
+			$newRoomID = $_POST["newRoomID"];
+
+			if ($newEndTime <= $newStartTime)
 			{
-				$sql = "UPDATE userinput 
-						set startTime = '$startTime', endTime = '$endTime', Monday = '1', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '0')
-						where userID = '$userID' AND roomID = '$roomID'";
+				echo "<center><h2>Error - Invalid Time Slots</h2></center>";
+				exit;
 			}
-			else if ($reservedDate == "Tuesday")
+
+			if ($reservedDate == "monday")
 			{
-				$sql = "UPDATE userinput 
-						set startTime = '$startTime', endTime = '$endTime', Monday = '0', Tuesday = '1', Wednesday = '0', Thursday = '0', Friday = '0')
-						where userID = '$userID' AND roomID = '$roomID'";
+				if ($newDate == "monday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Monday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Monday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '1', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Monday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "tuesday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Tuesday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Tuesday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '1', Wednesday = '0', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Monday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "wednesday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Wednesday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Wednesday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '1', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Monday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "thursday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Thursday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Thursday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '1', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Monday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "friday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Friday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Friday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '1'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Monday = '1'";
+						}
+					}
+				}
 			}
-			else if ($reservedDate == "Wednesday")
+			else if ($reservedDate == "tuesday")
 			{
-				$sql = "UPDATE userinput 
-						set startTime = '$startTime', endTime = '$endTime', Monday = '0', Tuesday = '0', Wednesday = '1', Thursday = '0', Friday = '0')
-						where userID = '$userID' AND roomID = '$roomID'";
+				if ($newDate == "monday") {
+				$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Monday = 1 AND roomID = '{$newRoomID}')";
+				$checkResult = mysqli_query($db,$check);
+				if($checkResult->num_rows > 0)
+				{
+					echo "<center><h2>Error - There is a class at this time</h2></center>";
+					exit;
+				}
+				else {
+					$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Monday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+						exit;
+					}
+					else {
+						$sql = "UPDATE userinput 
+						set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '1', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '0'
+						where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Tuesday = '1'";
+					}
+				}
+				}
+				else if ($newDate == "tuesday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Tuesday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Tuesday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '1', Wednesday = '0', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Tuesday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "wednesday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Wednesday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Wednesday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '1', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Tuesday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "thursday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Thursday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Thursday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '1', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Tuesday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "friday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Friday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Friday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '1'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Tuesday = '1'";
+						}
+					}
+				}
 			}
-			else if ($reservedDate == "Thursday")
+			else if ($reservedDate == "wednesday")
 			{
-				$sql = "UPDATE userinput 
-						set startTime = '$startTime', endTime = '$endTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '1', Friday = '0')
-						where userID = '$userID' AND roomID = '$roomID'";
+				if (newDate == "monday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Monday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Monday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '1', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Wednesday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "tuesday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Tuesday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Tuesday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '1', Wednesday = '0', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Wednesday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "wednesday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Wednesday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Wednesday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '1', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Wednesday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "thursday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Thursday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Thursday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '1', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Wednesday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "friday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Friday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Friday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '1'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Wednesday = '1'";
+						}
+					}
+				}
 			}
-			else if ($reservedDate == "Friday")
+			else if ($reservedDate == "thursday")
 			{
-				$sql = "UPDATE userinput 
-						set startTime = '$startTime', endTime = '$endTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '1')
-						where userID = '$userID' AND roomID = '$roomID'";
+				if ($newDate == "monday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Monday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Monday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '1', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Thursday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "tuesday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Tuesday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Tuesday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '1', Wednesday = '0', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Thursday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "wednesday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Wednesday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Wednesday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '1', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Thursday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "thursday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Thursday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Thursday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '1', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Thursday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "friday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Friday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Friday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '1'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Thursday = '1'";
+						}
+					}
+				}
+			}
+			else if ($reservedDate == "friday")
+			{
+				if ($newDate == "monday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Monday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Monday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '1', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Friday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "tuesday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Tuesday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Tuesday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '1', Wednesday = '0', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Friday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "wednesday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Wednesday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Wednesday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '1', Thursday = '0', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Friday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "thursday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Thursday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Thursday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '1', Friday = '0'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Friday = '1'";
+						}
+					}
+				}
+				else if ($newDate == "friday") {
+					$check = "SELECT * FROM courseinfo WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Friday = 1 AND roomID = '{$newRoomID}')";
+					$checkResult = mysqli_query($db,$check);
+					if($checkResult->num_rows > 0)
+					{
+						echo "<center><h2>Error - There is a class at this time</h2></center>";
+						exit;
+					}
+					else {
+						$check = "SELECT * FROM userinput WHERE (startTime <= '{$newStartTime}' AND endTime >= '{$newStartTime}' AND Friday = 1 AND roomID = '{$newRoomID}')";
+						$checkResult = mysqli_query($db,$check);
+						if($checkResult->num_rows > 0)
+						{
+							echo "<center><h2>Error - There is a reservation at this time</h2></center>";
+							exit;
+						}
+						else {
+							$sql = "UPDATE userinput 
+							set roomID = '$newRoomID', startTime = '$newStartTime', endTime = '$newEndTime', Monday = '0', Tuesday = '0', Wednesday = '0', Thursday = '0', Friday = '1'
+							where userID = '$userID' AND roomID = '$roomID' AND startTime = '$startTime' AND endTime = '$endTime' AND Friday = '1'";
+						}
+					}
+				}
 			}
 			else
 			{
-				echo "<h2> Invalid User or Room ID, Please try again</h2>";
+				echo "<h2> Invalid Day, Please try again</h2>";
 			}
 			if($sql != ""){
 			
@@ -120,10 +691,10 @@ if (!isset($_SESSION['loggedin'])) {
 						  </tr>";
 					echo  "<tr>";
 					echo  "<td>" . $userID. "</td>";
-					echo  "<td>" . $startTime. "</td>";
-					echo  "<td>" . $endTime. "</td>";
-					echo  "<td>" . $roomID. "</td>";
-					echo  "<td>" . $reservedDate. "</td>";
+					echo  "<td>" . $newStartTime. "</td>";
+					echo  "<td>" . $newEndTime. "</td>";
+					echo  "<td>" . $newRoomID. "</td>";
+					echo  "<td>" . $newDate. "</td>";
 					echo  "</tr>";
 					echo  "</table>";
 				}

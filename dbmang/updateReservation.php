@@ -5,15 +5,6 @@
       <link rel="stylesheet" type="text/css" href="fancy.css">
 </head>
 <body>
-<?php
-// We need to use sessions, so you should always start sessions using the below code.
-session_start();
-// If the user is not logged in redirect to the login page...
-if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
-	exit;
-}
-?>
 <table>
 	<tr>
 		<th>
@@ -21,6 +12,14 @@ if (!isset($_SESSION['loggedin'])) {
 		</th>
 	</tr>
 </table>
+<?php
+session_start();
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+	header('Location: index.html');
+	exit;
+}
+?>
 <div class="row">
 	<div class="column left">
 		<table id = "operations">
@@ -52,7 +51,9 @@ if (!isset($_SESSION['loggedin'])) {
 			<center>
 		<h1>Update A Reservation</h1>
 		<h2>Please Follow The Format. Use Military Time</h2>
-		<h3>Input the updated time slot and/or day. Use the same ID numbers as your current reservation</h3>
+		<h3>Input the current reservation details in the first row</h3>
+		<h3>Input the new reservation details in the second row</h3>
+		<h3>If something does not change, input the current detail</h3>
 	</center>
 	<table>
 		<tr>
@@ -61,20 +62,120 @@ if (!isset($_SESSION['loggedin'])) {
 			<th> End Time </th>
 			<th> RoomID </th>
 			<th> Reserved Date </th>
-			<th> Submit </th>
 		</tr>
 
 		<form action="update.php" method="post">
 			<tr>
-				<td><input type = "number"  name = "userID" id="userID" size = "7" value = "1234567" min="0" max="9999999" /></td>
+				<td><input type = "number"  name = "userID" id="userID" size = "7" value = "<?php echo ($_SESSION['name']); ?>" min="<?php echo ($_SESSION['name']); ?>" max="<?php echo ($_SESSION['name']); ?>" /></td>
 				<td><input type = "text"  name = "startTime" id="startTime" size = "5" value = "00:00" /></td>
 				<td><input type = "text"  name = "endTime" id="endTime" size = "5" value = "01:00" /></td>
 				<td><input type = "text"  name = "roomID" id="roomID" size = "6" value = "CAS134" /></td>				
-				<td><input type = "text"  name = "reservedDate" id="reservedDate" size = "9" value = "Monday" /></td>
+				<td>
+					<select name="day" id="day">
+						<option value="monday">Monday</option>
+						<option value="tuesday">Tuesday</option>
+						<option value="wednesday">Wednesday</option>
+						<option value="thursday">Thursday</option>
+						<option value="friday">Friday</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th> New Start Time </th>
+				<th> New End Time </th>
+				<th> New RoomID </th>
+				<th> New Reserved Date </th>
+				<th> Submit </th>
+			</tr>
+			<tr>
+				<td><input type = "text"  name = "newStartTime" id="newStartTime" size = "5" value = "00:00" /></td>
+				<td><input type = "text"  name = "newEndTime" id="newEndTime" size = "5" value = "01:00" /></td>
+				<td><input type = "text"  name = "newRoomID" id="newRoomID" size = "6" value = "CAS134" /></td>			
+				<td>
+					<select name="newDay" id="newDay">
+						<option value="monday">Monday</option>
+						<option value="tuesday">Tuesday</option>
+						<option value="wednesday">Wednesday</option>
+						<option value="thursday">Thursday</option>
+						<option value="friday">Friday</option>
+					</select>
+				</td>
 				<td><input type = "submit" value="Submit"></td>
 			</tr>
 		</form>	
 	</table>
+	<?php
+			// Connect to MySQL
+		$db = mysqli_connect("localhost:3306", "root", "","dbmang");
+
+		if (!$db) {
+		 print "Error - Could not connect to MySQL";
+		 exit;
+		}
+
+		// Select the database
+		$er = mysqli_select_db($db,"dbmang");
+		if (!$er) {
+		print "Error - Could not select the database";
+		exit;
+		}
+
+		echo "<center><h1> Current Reservations</h1></center>";
+		{
+			$sql = "SELECT *
+					FROM userinput
+					WHERE userID = '{$_SESSION['name']}'";
+			$result = $db->query($sql);
+
+			if ($result->num_rows > 0) {
+			echo "<table>
+					<tr>
+						<th>User ID</th>
+						<th>Start Time</th>
+						<th>End Time</th>
+						<th>Room ID</th>
+						<th>Reserved Dates</th>
+					</tr>";
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				$monday = $row["Monday"];
+				$tuesday = $row["Tuesday"];
+				$wednesday = $row["Wednesday"];
+				$thursday = $row["Thursday"];
+				$friday = $row["Friday"];
+				echo "<tr>";
+				echo	"<td>" . $row["userID"]. "</td>";
+				echo	"<td>" . $row["startTime"]. "</td>";
+				echo	"<td>" . $row["endTime"]. "</td>";
+				echo	"<td>" . $row["roomID"]. "</td>";
+				echo "<td>";
+				if ($monday > 0) {
+					echo "Monday" . "<br>";
+				}
+				if ($tuesday > 0)
+				{
+					echo "Tuesday<br>";
+				}
+				if ($wednesday > 0) {
+					echo "Wednesday<br>";
+				}
+				if ($thursday > 0)
+				{
+					echo "Thursday<br>";
+				}
+				if ($friday > 0) {
+					echo "Friday";
+				}
+				echo "</td>";
+				echo "</tr>";
+			}
+			echo "</table>";
+			} else {
+			echo "<center><h2>You have no current reservations</h2></center>";
+			}
+		}
+
+		?>
 	</div>
 	<div class="column right">
 	<h2 style="padding-left: 200px;"><a href = "logout.php"> LogOut </a></h2><br><br>

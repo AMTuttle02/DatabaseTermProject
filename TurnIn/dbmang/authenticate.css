@@ -1,0 +1,116 @@
+*{
+  box-sizing: border-box;
+
+}
+
+body{
+	color: white;
+	background-color: #121212;
+}
+table{
+	border-collapse: collapse;
+	width:100%;
+}
+th{
+	border-top: 10px groove grey;
+	border-left: 10px groove grey;
+	border-right: 10px groove grey;
+	padding: 15px;
+	color: silver;
+	background-color: #3b3b3b;
+}
+a{
+	color: white;
+	display: block;
+}
+img{
+	padding-left: 75px;
+}
+tr, td{
+	border-top: 10px groove grey;
+	border-left: 10px groove grey;
+	border-right: 10px groove grey;
+	padding: 15px;
+	color: white;
+	text-align: center;
+	background-color: #3b3b3b;
+}
+
+.column {
+  float: left;
+}
+
+.left, .right {
+  width: 25%;
+}
+
+.middle {
+  width: 50%;
+  padding-left:70px;
+  padding-right:70px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#operations{
+	padding: 30px;
+}
+
+.login {
+  	width: 100%;
+  	background-color: #222222;
+  	box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+  	margin: 100px auto;
+}
+.login h1 {
+  	text-align: center;
+  	color: silver;
+  	font-size: 24px;
+  	padding: 20px 0 20px 0;
+  	border-bottom: 1px solid #dee0e4;
+}
+.login form {
+  	display: flex;
+  	flex-wrap: wrap;
+  	justify-content: center;
+  	padding-top: 20px;
+}
+.login form label {
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	width: 50px;
+  	height: 50px;
+  	background-color: #7a34eb;
+  	color: #ffffff;
+}
+.login form input[type="password"], .login form input[type="text"] {
+  	width: 310px;
+  	height: 50px;
+  	border: 1px solid #dee0e4;
+  	margin-bottom: 20px;
+  	padding: 0 15px;
+}
+.login form input[type="submit"] {
+  	width: 100%;
+  	padding: 15px;
+ 	margin-top: 20px;
+  	background-color: #7a34eb;
+  	border: 0;
+  	cursor: pointer;
+  	font-weight: bold;
+  	color: #ffffff;
+  	transition: background-color 0.2s;
+}
+.login form input[type="submit"]:hover {
+	background-color: #5f26bd;
+  	transition: background-color 0.2s;
+}
+
+
+
